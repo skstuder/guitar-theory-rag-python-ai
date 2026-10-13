@@ -10,7 +10,8 @@ Build a small Python RAG application that answers guitar theory questions using 
 - Sentence Transformers for local embeddings
 - ChromaDB for vector storage
 - OpenAI API for answer generation
-- Markdown for knowledge documents
+-
+- txt for knowledge documents
 
 ## Thought process
 

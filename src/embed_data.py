@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer
 
-from parse_data import SOURCE_DIR, load_documents
+from src.parse_data import SOURCE_DIR, load_documents
 
 def main():
     documents = []
