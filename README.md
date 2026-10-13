@@ -4,7 +4,7 @@ A prototype for asking music theory questions related to guitar that showcases r
 
 ## Data used
 
-I pulled music theory data from (This repo)[https://github.com/seancolsen/music-theory-data] for music theory context
+I pulled music theory data from [This repo](https://github.com/seancolsen/music-theory-data) for music theory context
 
 ## Setup
 
