@@ -164,15 +164,16 @@ def main():
             if not records:
                 print("No relevant records were found.\n")
                 continue
-
-            print(f"\nAssistant:\n{answer}")
-
+            
             print("\nRetrieved source records:")
             for index, record in enumerate(records, start=1):
                 print(
                     f"[Source {index}] {record['source']} "
                     f"({record['source_id']})"
                 )
+
+            print(f"\nAssistant:\n{answer}")
+
 
             print()
 
