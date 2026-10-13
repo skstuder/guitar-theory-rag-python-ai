@@ -5,6 +5,11 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from sentence_transformers import SentenceTransformer
 
+import sys
+import threading
+import itertools
+from contextlib import contextmanager
+
 
 load_dotenv()
 
@@ -80,6 +85,31 @@ Only cite records that actually support the associated claim.
     return response.output_text
 
 
+@contextmanager
+def loading(message="Thinking"):
+    stop_event = threading.Event()
+
+    def animate():
+        for frame in itertools.cycle(["|", "/", "-", "\\"]):
+            if stop_event.is_set():
+                break
+
+            sys.stdout.write(f"\r{message} {frame}")
+            sys.stdout.flush()
+            stop_event.wait(0.1)
+
+    thread = threading.Thread(target=animate, daemon=True)
+    thread.start()
+
+    try:
+        yield
+    finally:
+        stop_event.set()
+        thread.join()
+        sys.stdout.write("\r" + " " * (len(message) + 3) + "\r")
+        sys.stdout.flush()
+
+
 def main():
     if not os.environ.get("OPENAI_API_KEY"):
         raise SystemExit(
@@ -119,17 +149,21 @@ def main():
             continue
 
         try:
-            records = retrieve_context(
-                question,
-                collection,
-                embedding_model,
-            )
+            with loading("Searching knowledge base and generating answer"):
+                records = retrieve_context(
+                    question,
+                    collection,
+                    embedding_model,
+                )
+
+                if records:
+                    answer = generate_answer(question, records, client)
+                else:
+                    answer = None
 
             if not records:
                 print("No relevant records were found.\n")
                 continue
-
-            answer = generate_answer(question, records, client)
 
             print(f"\nAssistant:\n{answer}")
 
