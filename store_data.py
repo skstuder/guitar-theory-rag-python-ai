@@ -40,6 +40,7 @@ def main():
                 {
                     "source": document["source"],
                     "record_type": document["record_type"],
+                    "source_id": document["source_id"],
                 }
                 for document in batch
             ],
