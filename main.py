@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import chromadb
 from dotenv import load_dotenv
@@ -18,6 +19,14 @@ COLLECTION_NAME = "music_theory"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 OPENAI_MODEL = "gpt-4.1-mini"
 RESULT_LIMIT = 8
+
+def load_instructions():
+    path = (
+        Path(__file__).parent
+        / "prompts"
+        / "music_theory_assistant.txt"
+    )
+    return path.read_text(encoding="utf-8")
 
 
 def retrieve_context(question, collection, embedding_model):
@@ -48,7 +57,7 @@ def retrieve_context(question, collection, embedding_model):
     return records
 
 
-def generate_answer(question, records, client):
+def generate_answer(question, records, client, instructions):
     """Generate an answer grounded in retrieved records."""
     context = "\n\n".join(
         f"[Source {index}]\n"
@@ -60,22 +69,7 @@ def generate_answer(question, records, client):
 
     response = client.responses.create(
         model=OPENAI_MODEL,
-        instructions="""
-You are a helpful music theory assistant.
-
-Answer the user's question in clear, natural language.
-
-Use retrieved records as evidence for music-theory facts.
-Do not invent facts or claim the dataset says something it does not.
-If the records do not contain enough information, explain what is missing.
-
-For guitar questions, distinguish facts from the dataset from any
-additional reasoning needed to calculate fretboard positions.
-Do not invent a fingering if you cannot establish that it is correct.
-
-Cite supporting records inline as [Source 1], [Source 2], etc.
-Only cite records that actually support the associated claim.
-""",
+        instructions=instructions,
         input=(
             f"User question:\n{question}\n\n"
             f"Retrieved records:\n{context}"
@@ -111,6 +105,7 @@ def loading(message="Thinking"):
 
 
 def main():
+    instructions = load_instructions()
     if not os.environ.get("OPENAI_API_KEY"):
         raise SystemExit(
             "OPENAI_API_KEY is missing. Add it to your .env file."
@@ -157,14 +152,14 @@ def main():
                 )
 
                 if records:
-                    answer = generate_answer(question, records, client)
+                    answer = generate_answer(question, records, client, instructions)
                 else:
                     answer = None
 
             if not records:
                 print("No relevant records were found.\n")
                 continue
-            
+
             print("\nRetrieved source records:")
             for index, record in enumerate(records, start=1):
                 print(
