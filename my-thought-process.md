@@ -36,6 +36,7 @@ Build a small Python RAG application that answers guitar theory questions using 
 
 1. Make a nice UI or add better CLI UX
 2. Give it more data, or setup an API connection to retrieve data also
-3. Learn Python best practices for codebase architecture
-4. Better project organization
-5. Go beyond basic RAG with other features
+3. Deploy it, host the database somewhere, make a server, go beyond local toy essentially
+4. Learn Python best practices for codebase architecture, probably missed some core things
+5. Better project organization
+6. Go beyond basic RAG with other features
