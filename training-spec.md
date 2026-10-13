@@ -20,7 +20,7 @@ Build a small Python RAG application that answers guitar theory questions using 
 ## Initial project plan
 
 1. Set up project structure, init packages and technologies, then hello world an output
-2. Collect the external data that will be used for RAG
+2. Collect the external data that will be used for RAG, and a way to parse it
 3. Set up ingestion pipeline
 4. Generate Embeddings
 5. Build the vector database
