@@ -27,6 +27,8 @@ def main():
 
         print(f"Result {i + 1}")
         print(f"Type: {metadata['record_type']}")
+        print(f"Record ID: {metadata['source_id']}")
+        print(f"Source: {metadata['source']}")
         print(f"Distance: {distance:.4f}")
         print(document)
         print("-" * 40)
