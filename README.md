@@ -68,7 +68,6 @@ Example in C:
 Guitar tabs in standard tuning (EADGBE):
 
 C half-diminished (Cm7♭5)
-```
 
 e|---x---
 B|---4--- (Bb)
@@ -77,10 +76,7 @@ D|---4--- (Eb)
 A|---3--- (C)
 E|---x---
 
-```
-
 C diminished seventh (Cdim7)
-```
 
 e|---2--- (Bb♭ = A)
 B|---1--- (Gb)
@@ -89,8 +85,6 @@ D|---1--- (C)
 A|---x---
 E|---x---
 
-```
-
-This shows the voicing difference wher
+This shows the voicing difference where the half-diminished uses the minor seventh (B♭) and the diminished seventh chord has the diminished seventh (A) creating a more tense sound.
 
 ```
