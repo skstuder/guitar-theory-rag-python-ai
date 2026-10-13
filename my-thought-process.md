@@ -27,7 +27,7 @@ Build a small Python RAG application that answers guitar theory questions using 
 4. Generate Embeddings - numerical representations of the data
 5. Build the vector database
 6. Implement retrieval setup
-7. Connect LLM
+7. Connect LLM, use ENV setup to keep token private
 8. Connect to the CLI
 9. Add a couple UX niceties like loading, but don't go overboard
 10. Adjust the prompt till it works well
